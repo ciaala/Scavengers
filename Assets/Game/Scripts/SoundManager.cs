@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class SoundManager : MonoBehaviour {
 	public AudioSource efxSource;
 	public AudioSource musicSource;
@@ -34,7 +33,6 @@ public class SoundManager : MonoBehaviour {
 		
 		int randomIndex = Random.Range (0, clips.Length);			
 		efxSource.clip = clips [randomIndex];
-
 		efxSource.Play();
 	}
 }

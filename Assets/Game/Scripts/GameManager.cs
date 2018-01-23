@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	// Singleton
-	public static GameManager singleton = null;
+	public static GameManager instance;
+
 	// Board 
 	BoardManager boardScript;
 	// UI
@@ -27,9 +28,9 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		if (singleton == null) {
-			singleton = this;
-		} else if(singleton != this){
+		if (instance == null) {
+			instance = this;
+		} else if (instance != this) {
 			Destroy (gameObject);
 		}
 		DontDestroyOnLoad (gameObject);

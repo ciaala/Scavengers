@@ -8,7 +8,7 @@ public abstract class MovingObject : MonoBehaviour
 
 	public float moveTime = 0.1f;
 	private Rigidbody2D rb2D;
-	private BoxCollider2D boxCollider;
+	protected BoxCollider2D boxCollider;
 	private float inverseMoveTime;
 
 	protected virtual void Start ()
@@ -34,8 +34,6 @@ public abstract class MovingObject : MonoBehaviour
 	// out is a reference
 	protected bool Move (int xDir, int yDir, out RaycastHit2D hit)
 	{
-		Debug.Log( "Move] h: " + xDir + ", v: " + yDir);
-
 		// Implicit conversion discard Z data
 		Vector2 start = transform.position;
 
@@ -47,8 +45,6 @@ public abstract class MovingObject : MonoBehaviour
 		boxCollider.enabled = true;
 
 		if (hit.transform == null) { 
-			Debug.Log( "Move] h: " + xDir + ", v: " + yDir);
-
 			StartCoroutine (SmoothMovement (end));
 			return true;
 		}
@@ -73,6 +69,7 @@ public abstract class MovingObject : MonoBehaviour
 			OnCantMove (hitComponent);
 		}
 	}
+
 
 	protected abstract void OnCantMove <T> (T component) 
 		where T : Component;

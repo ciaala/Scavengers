@@ -35,19 +35,22 @@ public class Player : MovingObject
 	{
 		foodText = GameObject.Find ("FoodText").GetComponent<Text> ();
 		animator = GetComponent<Animator> ();
-		food = GameManager.singleton.playerFoodPoints;
+		food = GameManager.instance.playerFoodPoints;
 		foodText.text = "Food: " + food;
 		base.Start ();
 	}
 	private void OnDisable() {
-		GameManager.singleton.playerFoodPoints = food;
+		GameManager.instance.playerFoodPoints = food;
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-
-		if (!GameManager.singleton.playersTurn)
+		if (GameManager.instance == null) { 
+			Debug.Log ("Singleton is null");
+			return;
+		}
+		if ( !GameManager.instance.playersTurn)
 			return;
 		
 		int horizontal = 0;
@@ -86,13 +89,11 @@ public class Player : MovingObject
 	}
 	protected override void OnCantMove<T> (T component)
 	{
-		Debug.Log ("CHOP");
 		Wall hitWall = component as Wall;
 		hitWall.DamageWall (wallDamage);
-
 		animator.SetTrigger ("playerChop");
-
 	}
+
 	private void Restart() {
 		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex);
 	}
@@ -130,7 +131,7 @@ public class Player : MovingObject
 			SoundManager.singleton.RandomizeSFX(moveSounds);
 		}
 		CheckIfGameOver ();
-		GameManager.singleton.playersTurn = false;
+		GameManager.instance.playersTurn = false;
 	}
 
 	public void LoseFood(int loss) {
@@ -143,7 +144,7 @@ public class Player : MovingObject
 		if (food <= 0) { 
 			SoundManager.singleton.RandomizeSFX (gameOverSound);
 			SoundManager.singleton.musicSource.Stop ();
-			GameManager.singleton.GameOver ();
+			GameManager.instance.GameOver ();
 		}
 	}
 }
