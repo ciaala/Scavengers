@@ -12,9 +12,7 @@ public class CanvasResizeListener : MonoBehaviour {
 		adjustCamera (screenSize.x / screenSize.y);
 	}
 
-
 	void adjustCamera(float ratio) {
-
 		if (ratio > 1.0f) {
 			m_OrthographicCamera.orthographicSize = 5;
 			Debug.Log ("Ratio: " + ratio);
@@ -22,6 +20,5 @@ public class CanvasResizeListener : MonoBehaviour {
 			m_OrthographicCamera.orthographicSize = 9;
 			Debug.Log ("Ratio: " + ratio);		
 		}
-
 	}
 }
